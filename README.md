@@ -107,6 +107,13 @@ O projeto está organizado em módulos para melhor manutenção e legibilidade, 
 4. Detecção de travamento ou sobrecarga no servo
 5. Armazenamento de configurações em memória não-volátil
 
+## Documentação Detalhada do Código
+
+- [main](documentation/main.md)
+- [pir_control](documentation/pir_control.md)
+- [servo_control](documentation/servo_control.md)
+- [timer_display](documentation/timer_display.md)
+
 ## Contribuições
 Qualquer tipo de comentário é bem vindo, sinta-se a vontade para:
 * Reportar bugs
