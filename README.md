@@ -24,10 +24,16 @@ Este projeto é um sistema embarcado desenvolvido para STM32 que integra um disp
 ## Hardware Necessário
 * Microcontrolador STM32
 * Display OLED SSD1306
+![Display I2C SSD1306](https://cdn.awsli.com.br/600x700/468/468162/produto/61767182/15c70d9108-mmz9x81eyv.jpg "Display I2C SSD1306")
+
 * Sensor PIR HC-SR501
+![Sensor PIR HC-SR501](https://cdn.awsli.com.br/600x700/468/468162/produto/19414388/sensor-de-movimento-presenca-pir-aea8b3d8.jpg "Sensor PIR HC-SR501")
+
 * Servo Motor 
+![Servo Motor SG90](https://images.tcdn.com.br/img/img_prod/650361/micro_servo_motor_9g_sg90_837_6_08f3c1dc012229242f38111d7db26b7f.jpg "Servo Motor SG90")
+
 * LED (conectado ao GPIO PA5)
-* Interface I2C para comunicação com display
+![LED Interno (LED 2) | GPIO PA5](https://miro.medium.com/v2/resize:fit:1400/1*Eywsbmf0AOchA3KuthK_vg.png "LED Interno (LED 2) | GPIO PA5")
 
 ## Conexões
 * Display OLED: I2C1 | SDA E SCL
