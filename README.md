@@ -1,7 +1,7 @@
 # Irrigador com Sensor de Presença
 
 ## Descrição do Projeto
-Este projeto é um sistema embarcado desenvolvido para STM32 que integra um display OLED, um sensor PIR de presença e um servo motor. O sistema funciona como um timer digital que exibe as horas no display OLED e reage a detecções de presença, controlando um servo motor em resposta. Simulando um irrigador de campo aberto no quão assim que alguém é detectado, para de girar o servo motor.
+Este projeto é um sistema embarcado desenvolvido para STM32 que integra um display OLED, um sensor PIR de presença e um servo motor. O sistema funciona como um timer digital que exibe as horas no display OLED e reage a detecções de presença, controlando um servo motor em resposta. Simulando um irrigador de campo aberto no qual assim que alguém é detectado, para de girar o servo motor.
 
 ## Funcionalidades
 
