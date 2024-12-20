@@ -119,3 +119,10 @@ void PIR_Process(void)
 ```
 - Exibe "PIR POSITIVO" no display OLED.
 - Atraso de 1 segundo para evitar leituras excessivas.
+
+## Documentação Detalhada do Código
+
+- [main](documentation/main.md)
+- [pir_control](documentation/pir_control.md)
+- [servo_control](documentation/servo_control.md)
+- [timer_display](documentation/timer_display.md)

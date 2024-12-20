@@ -35,3 +35,10 @@ while (1)
 ```
   - `Timer_Display_Update()`: Atualiza o display com o tempo ou outras informações associadas ao temporizador.
   - `PIR_Process()`: Verifica o estado do sensor PIR e executa ações com base no estado (como mover o servo ou atualizar o display).
+
+  ## Documentação Detalhada do Código
+
+- [main](documentation/main.md)
+- [pir_control](documentation/pir_control.md)
+- [servo_control](documentation/servo_control.md)
+- [timer_display](documentation/timer_display.md)

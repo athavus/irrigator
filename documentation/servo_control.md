@@ -86,3 +86,10 @@ void Servo_Sweep(uint32_t start_pos, uint32_t end_pos)
 - Move o servo motor suavemente de `start_pos` para `end_pos`, ajustando a posição em pequenos passos.
 - O ciclo de movimento pode ser realizado em ambas as direções (do menor para o maior valor ou vice-versa).
 - Após completar o movimento, a função espera 1 segundo (`HAL_Delay(1000)`).
+
+## Documentação Detalhada do Código
+
+- [main](documentation/main.md)
+- [pir_control](documentation/pir_control.md)
+- [servo_control](documentation/servo_control.md)
+- [timer_display](documentation/timer_display.md)

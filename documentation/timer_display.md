@@ -106,3 +106,10 @@ void Timer_Display_Update(void)
 - Limpa o display e posiciona o cursor na posição `(25, 5)`.
 - Usa `sprintf` para formatar a string de tempo (`HH:MM:SS`).
 - Exibe o tempo formatado no display e atualiza a tela.
+
+## Documentação Detalhada do Código
+
+- [main](documentation/main.md)
+- [pir_control](documentation/pir_control.md)
+- [servo_control](documentation/servo_control.md)
+- [timer_display](documentation/timer_display.md)
