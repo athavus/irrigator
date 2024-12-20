@@ -23,6 +23,10 @@
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include "ssd1306.h"
+#include "timer_display.h"
+#include "servo_control.h"
+#include "pir_control.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -32,8 +36,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define SERVO_MIN 50
-#define SERVO_MAX 100
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -45,114 +48,24 @@
 I2C_HandleTypeDef hi2c1;
 
 TIM_HandleTypeDef htim2;
-<<<<<<< Updated upstream:capacitacao_embarcados/nucleo-f446re/irrigator-final/Core/Src/main.c
-
-UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-=======
-TIM_HandleTypeDef htim3;
 
 /* USER CODE BEGIN PV */
-uint16_t tempdht11, umidht11;
->>>>>>> Stashed changes:capacitacao_embarcados/nucleo-f446re/irrigator/Core/Src/main.c
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_USART2_UART_Init(void);
-static void MX_TIM2_Init(void);
-<<<<<<< Updated upstream:capacitacao_embarcados/nucleo-f446re/irrigator-final/Core/Src/main.c
 static void MX_I2C1_Init(void);
-=======
-static void MX_TIM3_Init(void);
->>>>>>> Stashed changes:capacitacao_embarcados/nucleo-f446re/irrigator/Core/Src/main.c
+static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-<<<<<<< Updated upstream:capacitacao_embarcados/nucleo-f446re/irrigator-final/Core/Src/main.c
-=======
-void dht11(uint16_t *temperatura, uint16_t *umidade)
-{
-	//Variáveis para execução de cálculos da função.
-	uint16_t tempcalc, umidcalc;
 
-	//Configurações para seleção da direção do Pino 'dht11' como saída digital:
-	GPIO_InitTypeDef GPIO_InitStruct = {0};
-	GPIO_InitStruct.Pin = GPIO_PIN_8;
-	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-	GPIO_InitStruct.Pull = GPIO_NOPULL;
-	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-	//Sinal em nivel lógico 0 - Conforme Datasheet.
-	HAL_GPIO_WritePin(GPIOA, dht11_Pin, GPIO_PIN_RESET);
-
-	//Tempo mínimo de 18ms - Conforme Datasheet.
-	HAL_Delay(20); //Configura para 20ms
-
-	//Sinal em nivel lógico 1 - Conforme Datasheet.
-	HAL_GPIO_WritePin(GPIOA, dht11_Pin, GPIO_PIN_SET);
-
-	//Configurações para seleção da direção do Pino 'dht11' como entrada digital:
-	GPIO_InitStruct.Pin = GPIO_PIN_8;
-	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-	GPIO_InitStruct.Pull = GPIO_NOPULL;
-	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-	//Lógica Principal:
-	//Seta contador Timer 2 para 0.
-	__HAL_TIM_SET_COUNTER(&htim3, 0);
-
-	//Variáveis Auxiliares.
-	uint16_t ler[2];
-	uint16_t dados[42];
-	uint8_t bits[40];
-	uint16_t temph = 0;
-	uint16_t umidh = 0;
-
-	//Lógica Para Captura do Tempo Alto dos Dados.
-	for(int i = 0; i < 42; i++)
-	{
-		while(HAL_GPIO_ReadPin(GPIOA, dht11_Pin) == GPIO_PIN_RESET);
-		ler[0] = __HAL_TIM_GET_COUNTER(&htim3);
-		while(HAL_GPIO_ReadPin(GPIOA, dht11_Pin) == GPIO_PIN_SET);
-		ler[1] = __HAL_TIM_GET_COUNTER(&htim3);
-		dados[i] = ler[1] - ler[0];
-	}
-
-	//Definindo bits conforme tempos do datasheet.
-	for(int i = 0; i < 40; i++)
-	{
-	    if((dados[i+2] >=20) && (dados[i+2] <=32))
-	    {
-		    bits[i] = 0;
-	    }
-	    else if((dados[i+2] >=65) && (dados[i+2] <=75))
-	    {
-		    bits[i] = 1;
-	    }
-	}
-
-	//Cálculo da temperatura e umidade determinado pelos bits.
-	for(int i = 0; i < 8; i++)
-	{
-	    temph += bits[i+16] << (7 - i);
-	    umidh += bits[i] << (7 - i);
-	}
-
-	//Atribuição dos valores calculados nas variáveis
-	tempcalc = temph;
-	umidcalc = umidh;
-	*temperatura = tempcalc;
-	*umidade = umidcalc;
-}
->>>>>>> Stashed changes:capacitacao_embarcados/nucleo-f446re/irrigator/Core/Src/main.c
 /* USER CODE END 0 */
 
 /**
@@ -184,113 +97,22 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_USART2_UART_Init();
-  MX_TIM2_Init();
-<<<<<<< Updated upstream:capacitacao_embarcados/nucleo-f446re/irrigator-final/Core/Src/main.c
   MX_I2C1_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-=======
-  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
 
->>>>>>> Stashed changes:capacitacao_embarcados/nucleo-f446re/irrigator/Core/Src/main.c
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
-  HAL_TIM_Base_Start(&htim3);
-  dht11(&tempdht11, &umidht11);
-  char buffer[20];
-	SSD1306_Init();
-<<<<<<< Updated upstream:capacitacao_embarcados/nucleo-f446re/irrigator-final/Core/Src/main.c
+  Timer_Display_Init();
+	Servo_Init();
 
-  int cont_seconds = 0;
-  int cont_minutes = 0;
-  int cont_hours = 0;
-  int cont_seconds_stop = 0;
-
-  char buffer[26] = {0};
-=======
-	SSD1306_Clear();
-	SSD1306_GotoXY(20, 25);
-	sprintf(buffer, "Temp: %d C", tempdht11);
-	SSD1306_Puts(buffer, &Font_7x10, 1);
-	SSD1306_GotoXY(20, 45);
-	sprintf(buffer, "Humid: %d%%", umidht11);
-	SSD1306_Puts(buffer, &Font_7x10, 1);
-	SSD1306_UpdateScreen();
->>>>>>> Stashed changes:capacitacao_embarcados/nucleo-f446re/irrigator/Core/Src/main.c
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-  	cont_seconds++;
-  	cont_seconds_stop++;
-
-  	SSD1306_Clear();
-		SSD1306_GotoXY(25, 5);
-
-  	if (cont_seconds >= 60) {
-			cont_minutes++;
-			cont_seconds = 0;
-		}
-
-		if (cont_minutes >= 60) {
-			cont_hours++;
-			cont_minutes = 0;
-		}
-
-		if (cont_hours >= 24)
-			cont_hours = 0;
-
-		sprintf(buffer, "%02d:%02d:%02d",
-				cont_hours,
-				cont_minutes,
-				cont_seconds);
-
-		SSD1306_UpdateScreen();
-
-		SSD1306_Puts(buffer, &Font_11x18, 1);
-
-		uint32_t duty;
-
-  	uint8_t pir_state = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1);
-
-		if (pir_state == GPIO_PIN_RESET)
-		{
-			SSD1306_GotoXY(25, 25);
-			SSD1306_Puts("PIR NEGATIVO", &Font_7x10, 1);
-			SSD1306_UpdateScreen();
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-
-			if (cont_seconds_stop == 10) {
-				for (duty = SERVO_MIN; duty <= SERVO_MAX; duty++)
-				{
-					__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, duty);
-					HAL_Delay(50);
-				}
-
-				HAL_Delay(1000);
-			}
-
-			if (cont_seconds_stop == 20) {
-				for (duty = SERVO_MAX; duty >= SERVO_MIN; duty--)
-				{
-					__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, duty);
-					HAL_Delay(50);
-				}
-
-				cont_seconds_stop = 0;
-				HAL_Delay(1000);
-			}
-		} else {
-			cont_seconds_stop = 0;
-
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-			SSD1306_GotoXY(25, 25);
-			SSD1306_Puts("PIR POSITIVO", &Font_7x10, 1);
-			SSD1306_UpdateScreen();
-			HAL_Delay(1000);
-		}
+  	Timer_Display_Update();
+		PIR_Process();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -439,83 +261,6 @@ static void MX_TIM2_Init(void)
 }
 
 /**
-<<<<<<< Updated upstream:capacitacao_embarcados/nucleo-f446re/irrigator-final/Core/Src/main.c
-  * @brief USART2 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_USART2_UART_Init(void)
-{
-
-  /* USER CODE BEGIN USART2_Init 0 */
-
-  /* USER CODE END USART2_Init 0 */
-
-  /* USER CODE BEGIN USART2_Init 1 */
-
-  /* USER CODE END USART2_Init 1 */
-  huart2.Instance = USART2;
-  huart2.Init.BaudRate = 115200;
-  huart2.Init.WordLength = UART_WORDLENGTH_8B;
-  huart2.Init.StopBits = UART_STOPBITS_1;
-  huart2.Init.Parity = UART_PARITY_NONE;
-  huart2.Init.Mode = UART_MODE_TX_RX;
-  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
-  if (HAL_UART_Init(&huart2) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USART2_Init 2 */
-
-  /* USER CODE END USART2_Init 2 */
-=======
-  * @brief TIM3 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_TIM3_Init(void)
-{
-
-  /* USER CODE BEGIN TIM3_Init 0 */
-
-  /* USER CODE END TIM3_Init 0 */
-
-  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
-  TIM_MasterConfigTypeDef sMasterConfig = {0};
-
-  /* USER CODE BEGIN TIM3_Init 1 */
-
-  /* USER CODE END TIM3_Init 1 */
-  htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 75-1;
-  htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 65535;
-  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-  if (HAL_TIM_ConfigClockSource(&htim3, &sClockSourceConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
-  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-  if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN TIM3_Init 2 */
-
-  /* USER CODE END TIM3_Init 2 */
->>>>>>> Stashed changes:capacitacao_embarcados/nucleo-f446re/irrigator/Core/Src/main.c
-
-}
-
-/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -544,28 +289,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
 
-<<<<<<< Updated upstream:capacitacao_embarcados/nucleo-f446re/irrigator-final/Core/Src/main.c
-  /*Configure GPIO pin : pir_hc_sr501_Pin */
-  GPIO_InitStruct.Pin = pir_hc_sr501_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(pir_hc_sr501_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : LD2_Pin dht11_Pin */
-  GPIO_InitStruct.Pin = LD2_Pin|dht11_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-=======
-  /*Configure GPIO pins : USART_TX_Pin USART_RX_Pin */
-  GPIO_InitStruct.Pin = USART_TX_Pin|USART_RX_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  GPIO_InitStruct.Alternate = GPIO_AF7_USART2;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
   /*Configure GPIO pin : LD2_Pin */
   GPIO_InitStruct.Pin = LD2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -579,7 +302,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   HAL_GPIO_Init(dht11_GPIO_Port, &GPIO_InitStruct);
->>>>>>> Stashed changes:capacitacao_embarcados/nucleo-f446re/irrigator/Core/Src/main.c
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
