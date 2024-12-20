@@ -22,9 +22,9 @@ Este projeto é um sistema embarcado desenvolvido para STM32 que integra um disp
 * Possui sistema de segurança que interrompe se detectar pessoas
 
 ## Hardware Necessário
-* Microcontrolador STM32
+* Microcontrolador STM32  
 
-<img src="https://br.mouser.com/images/stmicroelectronics/lrg/Nucleo_Board_64_DSL.jpg" alt="STM32 NUCLEO F446RE" title="STM32 NUCLEO F446RE" width="300"/>
+<img src="https://a-static.mlcdn.com.br/800x560/placa-de-desenvolvimento-stm32f446re-stm32-nucleo-m4-f446re-stmicroelectronics/teknimas/nucleo-f446re-tei-stm/d3f8d1501dfe04e5da17dc102f9da750.jpeg" alt="STM32 NUCLEO F446RE" title="STM32 NUCLEO F446RE" width="300"/>
 
 * Display OLED SSD1306  
 
@@ -41,6 +41,7 @@ Este projeto é um sistema embarcado desenvolvido para STM32 que integra um disp
 * LED (conectado ao GPIO PA5)  
 
 <img src="https://miro.medium.com/v2/resize:fit:1400/1*Eywsbmf0AOchA3KuthK_vg.png" alt="LED Interno (LED 2) | GPIO PA5" title="LED Interno (LED 2) | GPIO PA5" width="300"/>
+
 
 ## Conexões
 * Display OLED: I2C1 | SDA E SCL
