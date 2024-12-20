@@ -24,6 +24,8 @@ Este projeto é um sistema embarcado desenvolvido para STM32 que integra um disp
 ## Hardware Necessário
 * Microcontrolador STM32
 
+<img src="https://br.mouser.com/images/stmicroelectronics/lrg/Nucleo_Board_64_DSL.jpg" alt="STM32 NUCLEO F446RE" title="STM32 NUCLEO F446RE" width="300"/>
+
 * Display OLED SSD1306  
 
 <img src="https://cdn.awsli.com.br/600x700/468/468162/produto/61767182/15c70d9108-mmz9x81eyv.jpg" alt="Display I2C SSD1306" title="Display I2C SSD1306" width="300"/>
