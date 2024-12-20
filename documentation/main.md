@@ -38,7 +38,7 @@ while (1)
 
   ## Documentação Detalhada do Código
 
-- [main](documentation/main.md)
-- [pir_control](documentation/pir_control.md)
-- [servo_control](documentation/servo_control.md)
-- [timer_display](documentation/timer_display.md)
+- [main](./main.md)
+- [pir_control](./pir_control.md)
+- [servo_control](./servo_control.md)
+- [timer_display](./timer_display.md)
